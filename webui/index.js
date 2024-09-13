@@ -256,20 +256,24 @@ async function sendMyMessage(message) {
         adjustTextareaHeight();
     }
 }
-// Get the current date and time
-const currentDate = new Date();
 
-// Get the local time zone
-const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-// Format the time and display it with the time zone
-const formattedDate = currentDate.toLocaleString('en-US', { 
-    timeZone: timeZone, 
-    timeZoneName: 'short'  // or 'short' for abbreviated time zone (e.g., 'EST')
-});
+function getCurrentTimeWithZone() {
+    // Get the current date and time
+    const currentDate = new Date();
 
-console.log(`Current local time: ${formattedDate}`);
-console.log(`Time zone: ${timeZone}`);
+    // Get the local time zone
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-sendMyMessage("Provide a short inspiring spiritual statement to lighten up the day, based on "+ `Time zone: ${timeZone}`)
+    // Format the time and display it with the time zone
+    const formattedDate = currentDate.toLocaleString('en-US', { 
+        timeZone: timeZone, 
+        timeZoneName: 'long'  // or 'short' for abbreviated time zone (e.g., 'EST')
+    });
+    console.log(`Current local time: ${formattedDate}`);
+    console.log(`Time zone: ${timeZone}`);
+    return formattedDate;
+}
+const curTime = getCurrentTimeWithZone()
+sendMyMessage("Provide a short inspiring spiritual statement to lighten up the day, based on time zone in "+ `${curTime}.`)
 setInterval(poll, 250);
