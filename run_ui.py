@@ -12,7 +12,9 @@ from python.helpers.files import get_abs_path
 from python.helpers.print_style import PrintStyle
 from python.helpers.log import Log
 from dotenv import load_dotenv
-
+import webbrowser
+from flask import Flask
+from threading import Timer
 
 #initialize the internal Flask server
 app = Flask("app",static_folder=get_abs_path("./webui"),static_url_path="/")
@@ -242,6 +244,8 @@ async def poll():
     return jsonify(response)
 
 
+def open_browser(port):
+    webbrowser.open_new(f'http://127.0.0.1:{port}')
 
 #run the internal server
 if __name__ == "__main__":
@@ -256,4 +260,5 @@ if __name__ == "__main__":
 
     # run the server on port from .env
     port = int(os.environ.get("WEB_UI_PORT", 0)) or None
+    Timer(1, open_browser, args=[port]).start()
     app.run(request_handler=NoRequestLoggingWSGIRequestHandler,port=port)

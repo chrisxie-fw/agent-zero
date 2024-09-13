@@ -245,4 +245,31 @@ function toggleCssProperty(selector, property, value) {
 
 chatInput.addEventListener('input', adjustTextareaHeight);
 
+async function sendMyMessage(message) {
+    //const message = chatInput.value.trim();
+    if (message) {
+
+        const response = await sendJsonData("/msg", { text: message, context });
+
+        //setMessage('user', message);
+        chatInput.value = '';
+        adjustTextareaHeight();
+    }
+}
+// Get the current date and time
+const currentDate = new Date();
+
+// Get the local time zone
+const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+// Format the time and display it with the time zone
+const formattedDate = currentDate.toLocaleString('en-US', { 
+    timeZone: timeZone, 
+    timeZoneName: 'short'  // or 'short' for abbreviated time zone (e.g., 'EST')
+});
+
+console.log(`Current local time: ${formattedDate}`);
+console.log(`Time zone: ${timeZone}`);
+
+sendMyMessage("Provide a short inspiring spiritual statement to lighten up the day, based on "+ `Time zone: ${timeZone}`)
 setInterval(poll, 250);
