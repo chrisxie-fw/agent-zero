@@ -275,5 +275,5 @@ function getCurrentTimeWithZone() {
     return formattedDate;
 }
 const curTime = getCurrentTimeWithZone()
-sendMyMessage("Provide a short inspiring spiritual statement to lighten up the day, based on time zone in "+ `${curTime}.`)
+sendMyMessage("Provide a short inspiring spiritual statement to lighten up the day, based on time zone in "+ `${curTime}, in both English and local language.`)
 setInterval(poll, 250);
